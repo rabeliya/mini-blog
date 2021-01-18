@@ -1,7 +1,9 @@
 <template>
   <header class="header shadow">
     <ul class="header-menu">
-      <li>ホーム</li>
+      <li>
+        ホーム
+      </li>
       <li>お問い合わせ</li>
     </ul>
   </header>

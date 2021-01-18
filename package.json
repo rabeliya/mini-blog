@@ -15,7 +15,8 @@
     "@nuxt/typescript-runtime": "^2.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "nuxt": "^2.14.6"
+    "nuxt": "^2.14.6",
+    "object-fit-images": "^3.2.4"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",

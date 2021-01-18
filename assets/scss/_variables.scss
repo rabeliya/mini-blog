@@ -16,6 +16,20 @@ a:link {
   text-decoration: none;
 }
 
+a.tag:link,
+a.tag:visited,
+a.tag:hover,
+a.tag:active {
+  color: #42b3ef;
+}
+
 .shadow {
   box-shadow: 0px 3px 6px #00000029;
+}
+
+// https://github.com/fregante/object-fit-images
+.img-obj-fit {
+  object-fit: cover;
+  object-position: center;
+  font-family: "object-fit: cover; object-position: bottom;";
 }
