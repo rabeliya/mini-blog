@@ -44,7 +44,8 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
+// <script lang="ts">
 import axios from 'axios'
 
 export default {
@@ -67,19 +68,7 @@ export default {
       console.log(err)
     }
   }
-  // async fetch () {
-  //   this.mountains = await axios.get(
-  //     'https://jam-miniblog.microcms.io/api/v1/blog',
-  //     {
-  //       headers: { 'X-API-KEY': process.env.API_KEY }
-  //     }
-  //   )
-  // },
-  // data () {
-  //   return {
-  //     mountains: []
-  //   }
-  // }
+
 }
 
 </script>

@@ -21,9 +21,10 @@
 
 <script lang="ts" scoped>
 import axios from 'axios'
+import Vue from 'vue'
 
-export default {
-  async asyncData ({ params }) {
+export default Vue.extend({
+  async asyncData (params :{} | {params}) {
     const { data } = await axios.get(
       `https://jam-miniblog.microcms.io/api/v1/blog/${params.slug}`,
       {
@@ -32,7 +33,7 @@ export default {
     )
     return data
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
