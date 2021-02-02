@@ -1,6 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 import axios from 'axios'
 require('dotenv').config()
+const { API_KEY } = process.env
 
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
@@ -19,10 +20,17 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  privateRuntimeConfig: {
+    apiKey: API_KEY
+    // apiKey: process.env.API_KEY
+  },
+  publicRuntimeConfig: {
+    apiKey: process.env.NODE_ENV !== 'production' ? API_KEY : undefined
+  },
   generate: {
     async routes () {
       const pages = await axios.get('https://jam-miniblog.microcms.io/api/v1/blog?limit=100', {
-        headers: { 'X-API-KEY': process.env.API_KEY }
+        headers: { 'X-API-KEY': this.$config.apiKey }
       })
         .then(res =>
           res.data.contents.map(content => ({

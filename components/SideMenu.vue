@@ -56,7 +56,7 @@ export default class SideMenu extends Vue {
     try {
       const res = await axios.get(`https://jam-miniblog.microcms.io/api/v1/blog?fields=${this.getItems}&limit=${this.limit}&offset=${this.offset}&orders=${this.order}&q=${this.searchName}`, {
         headers: {
-          'X-API-KEY': process.env.API_KEY
+          'X-API-KEY': this.$nuxt.context.$config.apiKey
         }
       })
       this.articles = res.data

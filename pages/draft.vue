@@ -45,7 +45,7 @@
 //     const { data } = await axios.get(
 //       `https://your-service-id.microcms.io/api/v1/blog/${query.id}?draftKey=${query.draftKey}`,
 //       {
-//         headers: { 'X-API-KEY': 'your-api-key' }
+//         headers: { 'X-API-KEY': 'this.$config.apiKey' }
 //       }
 //     )
 //     this.data = data

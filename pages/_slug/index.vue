@@ -35,11 +35,11 @@ import { Context } from '@nuxt/types'
 @Component
 export default class DetailPage extends Vue {
   posts = [];
-  async asyncData ({ params }: Context) {
+  async asyncData ({ params, $config }: Context) {
     const { data } = await axios.get(
       `https://jam-miniblog.microcms.io/api/v1/blog/${params.slug}?fields=title,image.url,updatedAt,publishedAt,tag.name,id,body`,
       {
-        headers: { 'X-API-KEY': process.env.API_KEY }
+        headers: { 'X-API-KEY': $config.apiKey }
       }
     )
     return data
