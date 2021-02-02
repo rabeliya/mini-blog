@@ -30,7 +30,7 @@ export default {
   generate: {
     async routes () {
       const pages = await axios.get('https://jam-miniblog.microcms.io/api/v1/blog?limit=100', {
-        headers: { 'X-API-KEY': this.$config.apiKey }
+        headers: { 'X-API-KEY': process.env.API_KEY }
       })
         .then(res =>
           res.data.contents.map(content => ({
