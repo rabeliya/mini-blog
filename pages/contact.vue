@@ -9,18 +9,18 @@
       </p>
     </div>
     <h1 class="title">
-      ようこそ、ミニブログへ。
+      お問い合わせ
     </h1>
     <img
-      src="~/assets/images/home-img@2x.jpg"
-      alt="ホームの画像"
+      src="~/assets/images/contact-img@2x.jpg"
+      alt="電話の画像"
       class="top-image"
-      max-height="436"
+      width="700"
     >
     <!-- eslint-disable-next-line vue/no-v-html -->
     <div class="post">
-      <p>しがない私がささいなことを呟きました。</p>
-      <p>よろしければ見ていってください。</p>
+      <p>Twitter: @sample</p>
+      <p>メールアドレス: sample@gmail.com</p>
     </div>
   </div>
 </template>

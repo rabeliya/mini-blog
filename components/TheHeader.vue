@@ -2,19 +2,34 @@
   <header class="header shadow">
     <ul class="header-menu">
       <li>
-        ホーム
+        <nuxt-link to="/">
+          ホーム
+        </nuxt-link>
       </li>
-      <li>お問い合わせ</li>
+      <li>
+        <nuxt-link to="/contact">
+          お問い合わせ
+        </nuxt-link>
+      </li>
     </ul>
   </header>
 </template>
-<script>
+
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component
+export default class TheHeader extends Vue {
+}
 </script>
+
 <style lang="scss">
 .header {
   display: flex;
   justify-content: flex-end;
-  padding: 50px;
+  align-items: center;
+  height: $header-h;
+  padding: 0 50px;
   background: #93DEFA;
   .header-menu {
     display: flex;

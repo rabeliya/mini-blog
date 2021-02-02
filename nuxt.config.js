@@ -21,7 +21,7 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    'normalize-css'
+    'normalize.css'
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
@@ -43,7 +43,8 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    '@nuxtjs/dayjs'
   ],
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
@@ -64,8 +65,22 @@ export default {
       }
     }
   },
-
+  // Optional (https://github.com/nuxt-community/dayjs-module)
+  dayjs: {
+    locales: ['ja'],
+    defaultLocale: 'ja',
+    defaultTimeZone: 'Asia/Tokyo',
+    plugins: [
+      'utc',
+      'timezone'
+    ]
+  },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    postcss: {
+      preset: {
+        autoprefixer: { grid: 'autoplace' }
+      }
+    }
   }
 }

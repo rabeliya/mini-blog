@@ -1,8 +1,19 @@
 <template>
-  <main class="main">
-    <p class="date">
-      {{ publishedAt }}
-    </p>
+  <div class="main-wrapper">
+    <div class="date">
+      <p class="published-date">
+        <v-icon>
+          mdi-calendar-blank
+        </v-icon>
+        {{ $dayjs(publishedAt).format('YYYY.MM.DD') }}
+      </p>
+      <p v-if="updatedAt !== publishedAt" class="revised-date">
+        <v-icon>
+          mdi-update
+        </v-icon>
+        {{ $dayjs(updatedAt).format('YYYY.MM.DD') }}
+      </p>
+    </div>
     <h1 class="title">
       {{ title }}
     </h1>
@@ -13,60 +24,39 @@
     >
     <!-- eslint-disable-next-line vue/no-v-html -->
     <div class="post" v-html="body" />
-    <nuxt-link to="#" class="tag">
-      #{{ tag }}
-    </nuxt-link>
-  </main>
+  </div>
 </template>
 
-<script lang="ts" scoped>
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
 import axios from 'axios'
-import Vue from 'vue'
+import { Context } from '@nuxt/types'
 
-export default Vue.extend({
-  async asyncData (params :{} | {params}) {
+@Component
+export default class DetailPage extends Vue {
+  posts = [];
+  async asyncData ({ params }: Context) {
     const { data } = await axios.get(
-      `https://jam-miniblog.microcms.io/api/v1/blog/${params.slug}`,
+      `https://jam-miniblog.microcms.io/api/v1/blog/${params.slug}?fields=title,image.url,updatedAt,publishedAt,tag.name,id,body`,
       {
         headers: { 'X-API-KEY': process.env.API_KEY }
       }
     )
     return data
   }
-})
+  // async asyncData ({ params }: Context) {
+  //   const data = await axios.get(
+  //     `https://jam-miniblog.microcms.io/api/v1/blog/${params.slug}?fields=title,image.url,updatedAt,publishedAt,tag.name,id,body`,
+  //     {
+  //       headers: { 'X-API-KEY': process.env.API_KEY }
+  //     }
+  //   )
+  //   return { posts: data }
+  // }
+}
+
 </script>
 
 <style lang="scss" scoped>
-  .main {
-    display: grid;
-    grid-template:
-    "..... ..... ....." 80px
-    "..... date ....."
-    "..... ..... ....." 10px
-    "..... title ....."
-    "..... ..... ....." 30px
-    "..... image ....."
-    "..... ..... ....." 30px
-    "..... body  ....."
-    "..... ..... ....." 10px
-    "..... tag  ....."
-    "..... ..... ....." 80px
-    / 40px 1fr   40px
-    ;
-    .date {
-      grid-area: date;
-    }
-    .title {
-      grid-area: title;
-    }
-    .top-image {
-      grid-area: image;
-    }
-    .post {
-      grid-area: body;
-    }
-    .tag {
-      grid-area: tag;
-    }
-  }
+@import "~/assets/scss/style.scss";
 </style>

@@ -1,3 +1,15 @@
+// ---------------------  color
+
+$sub-text-color: #707070;
+$side-menu-color: #f5f5f5;
+$tag-color: #42b3ef;
+
+// --------------------- hight
+
+$header-h: 60px;
+
+// ---------------------  generals
+
 *,
 *::before,
 *::after {
@@ -16,11 +28,21 @@ a:link {
   text-decoration: none;
 }
 
-a.tag:link,
-a.tag:visited,
-a.tag:hover,
-a.tag:active {
-  color: #42b3ef;
+a.title,
+a.title:link,
+a.title:visited,
+a.title:hover,
+a.title:active {
+  color: $sub-text-color;
+}
+
+p.article-tag,
+p.tag {
+  color: $tag-color;
+  &:hover {
+    opacity: 0.7;
+    cursor: pointer;
+  }
 }
 
 .shadow {
@@ -32,4 +54,32 @@ a.tag:active {
   object-fit: cover;
   object-position: center;
   font-family: "object-fit: cover; object-position: bottom;";
+}
+
+// vuetify
+
+.v-application p {
+  margin-bottom: 0px;
+}
+.v-application {
+  div.v-application--wrap {
+    min-height: 100%;
+    margin-bottom: 0;
+    background-color: $side-menu-color;
+    ul,
+    ol {
+      padding-left: 0;
+    }
+  }
+}
+
+// vuetify
+
+.v-application .title {
+  line-height: 0;
+  font-size: 1.1rem !important;
+}
+
+.theme--light.v-pagination .v-pagination__item--active {
+  background: #ff9433;
 }
