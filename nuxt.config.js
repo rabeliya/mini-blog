@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import axios from 'axios'
 require('dotenv').config()
 
 export default {
@@ -18,7 +19,20 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-
+  generate: {
+    async routes () {
+      const pages = await axios.get('https://jam-miniblog.microcms.io/api/v1/blog?limit=100', {
+        headers: { 'X-API-KEY': process.env.API_KEY }
+      })
+        .then(res =>
+          res.data.contents.map(content => ({
+            route: `/${content.id}`,
+            payload: content
+          }))
+        )
+      return pages
+    }
+  },
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
     'normalize.css'

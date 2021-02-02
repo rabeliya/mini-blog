@@ -40,9 +40,6 @@ export default class LayoutDefault extends Vue {
   grid-template:
   "main  side" calc(100vh - 60px)
   /1fr   550px;
-  // grid-template:
-  // ".....  main   .....  side   ....." calc(100vh - 60px)
-  // / 1fr   800px  1fr    600px  0px;
   .main-contents {
     grid-area: main;
     overflow-y: scroll;

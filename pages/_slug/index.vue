@@ -44,15 +44,6 @@ export default class DetailPage extends Vue {
     )
     return data
   }
-  // async asyncData ({ params }: Context) {
-  //   const data = await axios.get(
-  //     `https://jam-miniblog.microcms.io/api/v1/blog/${params.slug}?fields=title,image.url,updatedAt,publishedAt,tag.name,id,body`,
-  //     {
-  //       headers: { 'X-API-KEY': process.env.API_KEY }
-  //     }
-  //   )
-  //   return { posts: data }
-  // }
 }
 
 </script>

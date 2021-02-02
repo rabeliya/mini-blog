@@ -37,9 +37,6 @@ import { Component, Watch, Vue } from 'nuxt-property-decorator'
 export default class MenuTools extends Vue {
   inputData = ''
   public items = ['投稿が新しい順', '投稿が古い順', '更新が新しい順'];
-  // updateSelectItem(newValue) {
-  //   this.items
-  // }
   public selected = '投稿が新しい順'
 
   submitInputData () {

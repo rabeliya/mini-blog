@@ -31,53 +31,15 @@ import Articles from '~/components/SideMenuItems/Articles.vue'
 
 type Select = '投稿が新しい順' | '投稿が古い順' | '更新が新しい順'
 
-interface Content {
-  id: string;
-  image: { url:string };
-  publishedAt: string;
-  tag: {name: string};
-  title: string;
-  updatedAt: string;
-}
-
-  interface Article {
-    contents: [{
-      id: string;
-      image: { url:string };
-      publishedAt: string;
-      tag: { name: string };
-      title: string;
-      updatedAt: string;
-    }];
-    limit: number;
-    offset: number;
-    totalCount: number;
-  }
-
-Component.registerHooks(['fetchOnServer'])
-
 @Component({
   components: {
     MenuTools,
     Articles
   }
 })
-// SideMenu
+
 export default class SideMenu extends Vue {
   articles: any | {} = {}
-  // articles: {
-  //   contents: {
-  //     id: string;
-  //     image: {url: string};
-  //     publishedAt: string;
-  //     tag: {name: string};
-  //     title: string;
-  //     updatedAt: string;
-  //   }[];
-  //   limit: number;
-  //   offset: number;
-  //   totalCount: number;
-  //   } | {} = {}
 
   order = '-publishedAt'
   getItems = 'title,image.url,updatedAt,publishedAt,tag.name,id'
@@ -86,7 +48,6 @@ export default class SideMenu extends Vue {
   page = 1
   length = null
   isActive = false
-  // nuxt fetch options
 
   @Prop({ type: String, required: true, default: '' })
   searchName: string | undefined;
@@ -104,38 +65,6 @@ export default class SideMenu extends Vue {
       console.log(err)
     }
   }
-
-  async getApi () {
-    try {
-      const res = await axios.get(`https://jam-miniblog.microcms.io/api/v1/blog?fields=${this.getItems}&limit=${this.limit}&offset=${this.offset}&orders=${this.order}&q=${this.searchName}`, {
-        headers: {
-          'X-API-KEY': process.env.API_KEY
-        }
-      })
-      this.articles = res.data
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(err)
-    }
-  }
-
-  // fetchOnServer () { return false };
-
-  // getApiData () {
-  //   const promise = new Promise((resolve)=> {
-  //     const res = axios.get(`https://jam-miniblog.microcms.io/api/v1/blog?fields=${this.getItems}&limit=${this.limit}&offset=${this.offset}&orders=${this.order}&q=${this.searchName}`, {
-  //       headers: {
-  //         'X-API-KEY': process.env.API_KEY
-  //       }
-  //     })
-  //     resolve(res)
-  //   })
-
-  //   promise.then((value: AxiosResponse<any>) => {
-  //     console.log(value)
-  //     this.articles = value.data
-  //   })
-  // }
 
   onReceiveSelected (newValue: Select) {
     if (newValue === '投稿が新しい順') { this.order = '-publishedAt'; this.page = 1 }
