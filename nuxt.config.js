@@ -20,6 +20,9 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  env: {
+    API_KEY
+  },
   privateRuntimeConfig: {
     apiKey: API_KEY
     // apiKey: process.env.API_KEY
