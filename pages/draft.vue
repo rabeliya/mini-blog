@@ -43,7 +43,7 @@
 //       return
 //     }
 //     const { data } = await axios.get(
-//       `https://your-service-id.microcms.io/api/v1/blog/${query.id}?draftKey=${query.draftKey}`,
+//       `${process.env.MICROCMS_API_URL}/${query.id}?draftKey=${query.draftKey}`,
 //       {
 //         headers: { 'X-API-KEY': 'this.$config.apiKey' }
 //       }

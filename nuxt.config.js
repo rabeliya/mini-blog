@@ -20,12 +20,8 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  env: {
-    API_KEY
-  },
   privateRuntimeConfig: {
     apiKey: API_KEY
-    // apiKey: process.env.API_KEY
   },
   publicRuntimeConfig: {
     apiKey: process.env.NODE_ENV !== 'production' ? API_KEY : undefined
@@ -33,7 +29,7 @@ export default {
   generate: {
     async routes () {
       const pages = await axios.get('https://jam-miniblog.microcms.io/api/v1/blog?limit=100', {
-        headers: { 'X-API-KEY': process.env.API_KEY }
+        headers: { 'X-API-KEY': API_KEY }
       })
         .then(res =>
           res.data.contents.map(content => ({
