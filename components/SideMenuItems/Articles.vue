@@ -1,14 +1,16 @@
 <template>
   <v-app id="articles">
-    <ul class="article-list">
+    <ul class="article-wrapper">
       <li
         v-for="article in articles.contents"
         :key="article.id"
+        class="article-list"
       >
         <v-card class="article" hover>
           <nuxt-link :to="`${article.id}`">
             <v-img
               :src="article.image.url"
+              :aspect-ratio="16/9"
               alt="記事のサムネイル"
               class="article-image img-obj-fit"
             />
@@ -31,16 +33,10 @@
               </v-icon>
               {{ $dayjs(article.publishedAt).format('YYYY.MM.DD') }}
             </p>
-            <p v-if="article.revisedAt !== article.publishedAt" class="revised-date">
-              <v-icon small class="date-icon">
-                mdi-update
-              </v-icon>
-              {{ $dayjs(article.updatedAt).format('YYYY.MM.DD') }}
-            </p>
           </div>
         </v-card>
       </li>
-      <li v-if="articles.contents && articles.contents.length < 1">
+      <li v-if="articles.contents && articles.contents.length < 1" class="no-search-message">
         お探しの検索結果はみつかりませんでした
       </li>
     </ul>
@@ -63,79 +59,98 @@ export default class Articles extends Vue {
 
 <style lang="scss">
 
-.article-list {
+$ariticle_ratio: 45%;
+$ariticle_padding_w: 10px;
+
+.article-wrapper {
   background: $side-menu-color;
-  .article {
-    display: grid;
-    grid-template:
-    "image ...... ..... ......" 12px
-    "image ...... title ......"
-    "image ...... ..... ......" min(10px)
-    "image ...... tag   ......"
-    "image ...... ..... ......" 5px
-    "image ...... date  ......"
-    "image ...... ..... ......" 12px
-    / 120px 20px  1fr   20px ;
-     width: 500px;
-     height: 120px;
-     margin-bottom: 20px;
-    .article-image {
-      grid-area: image;
-      width: 120px;
-      height: 120px;
-    }
-    .article-title {
-      grid-area: title;
-      font-size: 16px;
-    }
-    .article-tag {
-      grid-area: tag;
-      font-size: 16px;
-    }
-    .article-date {
-      grid-area: date;
-      font-size: 14px;
-      .date-icon {
-        margin-right: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 5px;
+  width: 445.5px;
+  margin: 0 auto;
+  .article-list {
+      display: flex;
+      width: $ariticle_ratio;
+      margin-bottom: 15px;
+    .article {
+      display: grid;
+      grid-template:
+      " image "
+      " ..... " 10px
+      " title "
+      " ..... " minmax(10px, 1fr)
+      " tag   "
+      " ..... " 10px
+      " date  "
+      / 100%;
+      padding: $ariticle_padding_w;
+      .article-image {
+        grid-area: image;
+      }
+      .article-title {
+        grid-area: title;
+        font-size: 15px;
+        font-weight: bold;
+        // title width = card width
+        width: 178.22px;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+      .article-tag {
+        grid-area: tag;
+        font-size: 14px;
+      }
+      .article-date {
+        grid-area: date;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        .published-date {
+          display: flex;
+          align-items: center;
+          color: $sub-text-color;
+        }
+        .date-icon {
+          margin-right: 5px;
+        }
       }
     }
   }
-}
-
-.article-title:hover {
-  opacity: 0.7;
-}
-
-.article-date {
-  display: flex;
-  align-items: center;
-  .published-date {
-    margin-right: 16px;
+  .no-search-message {
+    margin: 0 auto;
   }
-  .published-date, .revised-date {
-    display: flex;
-    align-items: center;
-    color: $sub-text-color;
-    a {
-      color: $sub-text-color;
+}
+
+@media(max-width: 1024px) {
+  .article-wrapper {
+    justify-content: flex-start;
+    padding: 0;
+    width: 690px;
+    margin-right: -30px;
+    .article-list {
+      width: 200px;
+      margin-right: 30px;
     }
   }
 }
-
-@media(max-width:500px) {
-  .article-list {
-    .article {
-      width: 100vw;
-      grid-template:
-      "image ...... ..... ...... ..... ......" 12px
-      "image ...... title title  title ......"
-      "image ...... ..... ...... ..... ......" min(10px)
-      "image ...... date  ...... tag   ......" 22px
-      "image ...... ..... ...... ..... ......" 12px
-      / 80px 20px   90px  20px   auto   20px;
-      .article-date {
-        .revised-date {
-          display: none;
+@media(max-width: 690px) {
+  .article-wrapper {
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    .article-list {
+      width: 50%;
+      padding: 0 10px;
+      margin: 0 0 20px;
+      .article {
+        .article-title {
+          // title width = card width
+          width: 40vw;
+          font-size: 13px;
         }
       }
     }

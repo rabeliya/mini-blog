@@ -38,29 +38,34 @@ export default class LayoutDefault extends Vue {
 .main {
   display: grid;
   grid-template:
-  "main  side" calc(100vh - 60px)
-  /1fr   550px;
+  "side  main"
+  /500px 1fr;
   .main-contents {
     grid-area: main;
-    overflow-y: scroll;
-    height: (calc(100vh - 60px));
+    height: calc(100vh - 60px);
   }
   .side-menu {
     grid-area: side;
+    overflow-y: scroll;
+    height: 100vh;
   }
 }
 
-@media(max-width: 1350px) {
+@media(max-width: 1024px) {
   .main {
     display: grid;
     grid-template:
-    ".....  main   .....  " 100vh
+    ".....  .....  .....  " 100px
+    ".....  main   .....  "
     ".....  .....  .....  " 100px
     ".....  side   .....  "
     / 0     auto   0;
     .main-contents {
       overflow-y: visible;
       height: 100%;
+    }
+    .side-menu {
+      overflow-y: visible;
     }
   }
 }

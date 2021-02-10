@@ -43,7 +43,7 @@ export default class SideMenu extends Vue {
 
   order = '-publishedAt'
   getItems = 'title,image.url,updatedAt,publishedAt,tag.name,id'
-  limit = 3
+  limit = 6
   offset = 0
   page = 1
   length = null
@@ -120,27 +120,42 @@ export default class SideMenu extends Vue {
   display: grid;
   grid-template:
     "..... ..... ....." 60px
-    "..... tool ....."  50px
-    "..... ..... ....." 40px
-    "..... list ....." 420px
+    "..... tool ....."
+    "..... ..... ....." 100px
+    "..... list ....."
     "..... ..... ....." 30px
     "..... page ....."
-    "..... ..... ....." 30px
-    / 1fr  500px  1fr;
+    "..... ..... ....."
+    /1fr   auto  1fr;
+    min-height: 100vh;
+    background: $side-menu-color;
   .tool-box {
     grid-area: tool;
   }
   .article-list {
     grid-area: list;
-    width: 500px;
   }
   .pagination {
     grid-area: page;
+    padding-bottom: 100px;
+    background: $side-menu-color;
   }
 }
 
-.sidemenu-wrapper {
-  background: $side-menu-color;
+@media(max-width: 1024px) {
+  .sidemenu-wrapper {
+    // Delete white space
+    min-height: 110vh;
+    .article-list {
+      display: flex;
+      justify-content: center;
+    }
+    .pagination {
+      padding-bottom: 50px;
+      // modify v-pagination position
+      margin-top: -30px;
+    }
+  }
 }
 
 </style>
