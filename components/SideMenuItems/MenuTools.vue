@@ -24,7 +24,7 @@
         <v-btn
           rounded
           class="search-button"
-          @click="submitInputData"
+          @click.native="submitInputData"
         >
           検索
         </v-btn>

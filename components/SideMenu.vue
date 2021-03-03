@@ -13,10 +13,10 @@
     <v-pagination
       v-if="articles.totalCount > 0"
       v-model="page"
-      :length="IndexNum"
+      :length="indexNum"
       :total-visible="7"
       class="pagination"
-      :disabled="isActive"
+      :disabled="! isActive"
       @next="controllActive()"
       @previous="controllActive()"
     />
@@ -47,19 +47,26 @@ export default class SideMenu extends Vue {
   offset = 0
   page = 1
   length = null
-  isActive = false
+  isActive = true
 
-  @Prop({ type: String, required: true, default: '' })
+  @Prop({ type: String, required: false, default: '' })
   searchName: string | undefined;
 
-  async fetch () {
+  created () {
+    this.getApi()
+  }
+
+  async getApi () {
     try {
       const res = await axios.get(`${process.env.MICROCMS_API_URL}?fields=${this.getItems}&limit=${this.limit}&offset=${this.offset}&orders=${this.order}&q=${this.searchName}`, {
         headers: {
-          'X-API-KEY': this.$nuxt.context.$config.apiKey
+          'X-API-KEY': process.env.API_KEY
+          // 'X-API-KEY': this.$nuxt.context.$config.apiKey
         }
       })
-      this.articles = res.data
+      if (res !== undefined) {
+        this.articles = res.data
+      }
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(err)
@@ -91,24 +98,24 @@ export default class SideMenu extends Vue {
     setTimeout(this.changeActive, 300)
   }
 
-  get IndexNum () {
+  get indexNum () {
     return Math.ceil(this.articles.totalCount / this.limit)
   }
 
   @Watch('order' || 'getItems' || 'limit' || 'offset', { immediate: false })
   updatePage () {
-    this.$fetch()
+    this.getApi()
   }
 
   @Watch('page', { immediate: false })
   updateOffset () {
     this.offset = (this.page - 1) * this.limit
-    this.$fetch()
+    this.getApi()
   }
 
   @Watch('searchName', { immediate: false })
   updateSeach () {
-    this.$fetch()
+    this.getApi()
   }
 }
 

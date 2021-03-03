@@ -31,7 +31,7 @@
               <v-icon small class="date-icon">
                 mdi-calendar-blank
               </v-icon>
-              {{ $dayjs(article.publishedAt).format('YYYY.MM.DD') }}
+              {{ convertTime(article.publishedAt) }}
             </p>
           </div>
         </v-card>
@@ -45,6 +45,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
+// import dayjsはtemplateに$dayjsをかかないでjest error回避するため。
+import dayjs from 'dayjs'
 
 @Component
 export default class Articles extends Vue {
@@ -53,6 +55,10 @@ export default class Articles extends Vue {
 
   emitTagName (newValue :string) {
     this.$emit('emitTagName', newValue)
+  }
+
+  convertTime (time: string): string {
+    return dayjs(time).format('YYYY.MM.DD')
   }
 }
 </script>

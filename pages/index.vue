@@ -29,7 +29,7 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class HomePage extends Vue {
+export default class IndexPage extends Vue {
 }
 
 </script>
